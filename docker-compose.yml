@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/saved_documents:/app/saved_documents
+      - C:/Users/May/AppData/Roaming/gcloud/application_default_credentials.json:/app/gcp-credentials.json:ro
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /app/gcp-credentials.json
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:8000
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
