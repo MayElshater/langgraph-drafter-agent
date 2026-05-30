@@ -1,97 +1,181 @@
-# LangGraph Drafter App
+# 🚀 AI Document Drafting Agent
 
-A portfolio-ready fullstack AI document drafting app built with LangGraph, FastAPI, React, and Google Cloud Vertex AI. The app turns a terminal-based drafting agent into a browser demo where users can chat with an AI writing assistant, preview the evolving document, see tool activity, and save the final draft as a `.txt` file.
+A production-ready AI Agent built with LangGraph, Gemini 2.5 Flash, FastAPI, React, and Docker.
 
-## Architecture
+This project demonstrates agentic workflows, tool calling, document generation, document editing, and file saving capabilities through a modern web interface.
+
+---
+
+## 📸 Demo
+
+
+
+### Application Interface
+
+<img width="1347" height="764" alt="Screenshot 2026-05-26 005521" src="https://github.com/user-attachments/assets/5fd627b9-ba00-4bf2-bde7-796e975dc53d" />
+
+
+### Agent Reasoning & Tool Calling
+
+<img width="1350" height="764" alt="Screenshot 2026-05-30 193354" src="https://github.com/user-attachments/assets/41134138-29ed-4256-adec-e29f488f899f" />
+
+
+### Docker Deployment
+
+<img width="1250" height="711" alt="Screenshot 2026-05-30 183218" src="https://github.com/user-attachments/assets/0b23d1e8-5da0-41c3-9849-9cb1294ff111" />
+
+
+---
+
+## 🎥 Demo Video
+
+Watch the project demo:
+
+https://youtu.be/Z2ewBEjfoXM
+
+---
+
+## ✨ Features
+
+* AI-powered document drafting
+* LangGraph agent orchestration
+* Tool Calling architecture
+* Update Document Tool
+* Save Document Tool
+* Session-based document management
+* Real-time document preview
+* FastAPI REST API backend
+* React frontend interface
+* Dockerized deployment
+* Google Vertex AI integration
+
+---
+
+## 🏗️ System Architecture
 
 ```text
-React Vite UI  ->  FastAPI API  ->  LangGraph Agent  ->  Gemini on Vertex AI
-                      |
-                      +-> In-memory session document state
-                      +-> Local .txt document saving
+React Frontend
+       │
+       ▼
+FastAPI Backend
+       │
+       ▼
+LangGraph Agent
+       │
+       ├── Update Document Tool
+       ├── Save Document Tool
+       │
+       ▼
+Gemini 2.5 Flash (Vertex AI)
 ```
 
-The backend keeps demo session state in memory. Each `session_id` has its own chat messages and document content, which keeps the app simple for portfolio demos without adding a database.
+The agent reasons about user requests, selects the appropriate tool, updates the document state, and returns responses through the API layer.
 
-## Tech Stack
+---
 
-- Python 3.11
-- FastAPI
-- LangGraph
-- LangChain Google Vertex AI
-- Gemini 2.5 Flash
-- React + Vite
-- Docker Compose
+## 🛠️ Tech Stack
 
-## Project Structure
+### AI & Backend
+
+* Python 3.11
+* LangGraph
+* LangChain
+* Gemini 2.5 Flash
+* Google Vertex AI
+* FastAPI
+
+### Frontend
+
+* React
+* Vite
+
+### DevOps
+
+* Docker
+* Docker Compose
+
+---
+
+## 📂 Project Structure
 
 ```text
 langgraph-drafter-app/
+│
 ├── backend/
 │   ├── main.py
 │   ├── agent.py
 │   ├── requirements.txt
 │   ├── Dockerfile
 │   └── .env.example
+│
 ├── frontend/
 │   ├── src/
 │   ├── package.json
+│   ├── package-lock.json
 │   └── Dockerfile
+│
 ├── docker-compose.yml
 ├── README.md
 └── .gitignore
 ```
 
-## Environment Variables
+---
 
-Create `backend/.env` from the example file:
+## ⚙️ Environment Variables
+
+Create:
 
 ```bash
-cp backend/.env.example backend/.env
+backend/.env
 ```
 
-Then set:
+Example:
 
 ```env
-GCP_PROJECT_ID=your-google-cloud-project-id
+GCP_PROJECT_ID=your-project-id
 GCP_LOCATION=us-central1
 GEMINI_MODEL=gemini-2.5-flash
 ```
 
-No secrets should be committed to GitHub. Keep real credentials and `.env` files local.
+Never commit secrets or credentials to GitHub.
 
-## Google Cloud Authentication
+---
 
-This app uses Vertex AI, so your local environment or container needs Google Cloud credentials with access to Vertex AI.
+## 🔐 Google Cloud Authentication
 
-For local development, authenticate with:
+Authenticate locally:
 
 ```bash
 gcloud auth application-default login
-gcloud config set project your-google-cloud-project-id
+gcloud config set project your-project-id
 ```
 
-Make sure the Vertex AI API is enabled for the project.
+Ensure Vertex AI API is enabled and billing is configured.
 
-For Docker, provide credentials using your preferred secure workflow, such as mounting an application-default credentials file or using a service account in your deployment environment. Do not copy credential JSON files into the repository.
+---
 
-## Run Locally
+## 🚀 Run Locally
 
-Start the backend:
+### Backend
 
 ```bash
 cd backend
+
 python -m venv .venv
 .venv\Scripts\activate
+
 pip install -r requirements.txt
+
 uvicorn main:app --reload --port 8000
 ```
 
-Start the frontend in another terminal:
+### Frontend
 
 ```bash
 cd frontend
+
 npm install
+
 npm run dev
 ```
 
@@ -101,15 +185,23 @@ Open:
 http://localhost:5173
 ```
 
-FastAPI docs are available at:
+API Docs:
 
 ```text
 http://localhost:8000/docs
 ```
 
-## Run With Docker
+---
 
-Create `backend/.env`, then run:
+## 🐳 Run with Docker
+
+Create:
+
+```bash
+backend/.env
+```
+
+Then:
 
 ```bash
 docker compose up --build
@@ -117,66 +209,112 @@ docker compose up --build
 
 Services:
 
-- Backend: `http://localhost:8000`
-- Frontend: `http://localhost:5173`
-
-## API Endpoints
-
-### `GET /health`
-
-Returns:
-
-```json
-{ "status": "ok" }
+```text
+Frontend → http://localhost:5173
+Backend  → http://localhost:8000
 ```
 
-### `POST /chat`
+---
 
-Request:
+## 📦 Docker Images
 
-```json
-{
-  "session_id": "demo-session",
-  "message": "Write a short cover letter for a junior AI engineer role."
-}
+Backend:
+
+```bash
+docker pull mayrashad98/langgraph-drafter-backend:latest
+```
+
+Frontend:
+
+```bash
+docker pull mayrashad98/langgraph-drafter-frontend:latest
+```
+
+---
+
+## 🔌 API Endpoints
+
+### Health Check
+
+```http
+GET /health
 ```
 
 Response:
 
 ```json
 {
-  "ai_message": "Done. I drafted a concise cover letter...",
-  "document_content": "Dear Hiring Manager...",
-  "tool_used": "update_document",
-  "tool_result": "Document updated successfully."
+  "status": "ok"
 }
 ```
 
-### `GET /document/{session_id}`
+### Chat
 
-Returns the current document content for a session.
-
-### `POST /save`
+```http
+POST /chat
+```
 
 Request:
 
 ```json
 {
   "session_id": "demo-session",
-  "filename": "cover-letter.txt"
+  "message": "Create a proposal for WhatsApp automation using n8n"
 }
 ```
 
-Saves the document into `backend/saved_documents/`.
+### Save Document
 
-## Demo Flow
+```http
+POST /save
+```
 
-1. Open the frontend.
-2. Ask the agent to draft a document, such as a cover letter, email, or project proposal.
-3. Ask for revisions: shorter, more professional, more persuasive, or formatted with bullets.
-4. Watch the document preview update after tool calls.
-5. Save the document with the save button.
+### Get Current Document
 
-## Portfolio Notes
+```http
+GET /document/{session_id}
+```
 
-This project intentionally uses in-memory state to keep the demo easy to understand and fast to run. A production version could add persistent storage, authentication, file downloads, streaming responses, and deployment-specific Google Cloud identity.
+---
+
+## 🎯 Portfolio Highlights
+
+This project demonstrates:
+
+* AI Agent Design
+* Tool Calling Workflows
+* LangGraph Orchestration
+* Gemini Integration
+* FastAPI Development
+* React Frontend Development
+* Docker Containerization
+* Full-Stack AI Engineering
+
+---
+
+## 🔮 Future Improvements
+
+* Persistent Database Storage
+* User Authentication
+* Streaming Responses
+* File Downloads
+* Multi-user Sessions
+* Cloud Deployment
+* RAG Integration
+
+---
+
+## 👩‍💻 Author
+
+May Elshater
+
+AI Engineer | Automation Engineer
+
+Specialized in:
+
+* AI Agents
+* Workflow Automation
+* LangGraph
+* LLM Applications
+* FastAPI
+* Docker
