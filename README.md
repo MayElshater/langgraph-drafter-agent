@@ -17,7 +17,14 @@ This project demonstrates agentic workflows, tool calling, document generation, 
 
 ### Agent Reasoning & Tool Calling
 
-<img width="1350" height="764" alt="Screenshot 2026-05-30 193354" src="https://github.com/user-attachments/assets/41134138-29ed-4256-adec-e29f488f899f" />
+<img width="1361" height="763" alt="Screenshot 2026-05-30 193310" src="https://github.com/user-attachments/assets/c58a523c-d057-4580-8367-888dd9b4ec0f" />
+
+<img width="1352" height="763" alt="Screenshot 2026-05-30 193248" src="https://github.com/user-attachments/assets/4882668f-2de6-4c6d-b6e1-5ff2e7df2710" />
+
+<img width="1350" height="764" alt="Screenshot 2026-05-30 193354" src="https://github.com/user-attachments/assets/e4deb4b7-a808-4103-a9ba-a0329398a71c" />
+
+
+
 
 
 ### Docker Deployment
